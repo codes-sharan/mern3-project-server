@@ -16,7 +16,7 @@ const sendMail = async (data: IData) => {
     },
   });
   const mailOptions = {
-    from: "Digital Dokaan<dptest1230@gmail.com>",
+    from: "Digital Pasal <shpanthi09@gmail.com>",
     to: data.to,
     subject: data.subject,
     text: data.text,

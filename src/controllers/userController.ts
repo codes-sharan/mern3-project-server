@@ -18,6 +18,18 @@ class UserController {
       });
       return;
     }
+    // check whether that email already exist or not
+    const [data] = await User.findAll({
+      where: {
+        email: email,
+      },
+    });
+    if (data) {
+      res.status(400).json({
+        message: "Please try again later !!!",
+      });
+      return;
+    }
     // data --> users table ma insert garne
     await User.create({
       username,
@@ -26,8 +38,8 @@ class UserController {
     });
     await sendMail({
       to: email,
-      subject: "Registration successfull on Digital Dokaan",
-      text: "Welcome to Digital Dokaan, Thank you for registering",
+      subject: "Registration successfull on Digital Pasal",
+      text: "Welcome to Digital Pasal, Thank you for registering",
     });
 
     // await sequelize.query(`INSERT INTO users(id,username,email,password) VALUES (?,?,?,?)`, {
@@ -100,7 +112,7 @@ class UserController {
     const otp = generateOtp();
     await sendMail({
       to: email,
-      subject: "Digital Dokaan Password Change Request",
+      subject: "Digital Pasal Password Change Request",
       text: `You just request to reset password. Here is your otp, ${otp}`,
     });
     user.otp = otp.toString();
